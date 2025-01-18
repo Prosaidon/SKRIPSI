@@ -7,7 +7,7 @@
     "frontend": "npm run dev --prefix ../frontend",
     "start": "node server.js",
     "build": "npm run build --prefix ../frontend",
-    "dev": "concurrently \" npm run server \" \" npm run frontend\""
+    "dev": "concurrently \" npm run server \" "
   },
   "keywords": [],
   "author": "",

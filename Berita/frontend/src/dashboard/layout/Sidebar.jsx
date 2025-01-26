@@ -35,7 +35,7 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/dashboard/writer/adad" className={`menu-item ${pathname === '/dashboard/writer/add' ? 'active' : ''}`}>
+          <Link to="/dashboard/writer/add" className={`menu-item ${pathname === '/dashboard/writer/add' ? 'active' : ''}`}>
             <span className="icon">
               <AiOutlinePlus />
             </span>

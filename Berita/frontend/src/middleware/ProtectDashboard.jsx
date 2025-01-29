@@ -11,7 +11,7 @@ const ProtectDashboard = () => {
     if (userInfo){
         return <Outlet/>
     } else {
-        return <Navigate to="/gagal"/>
+        return <Navigate to="/unable-access"/>
     }
 
    

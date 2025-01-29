@@ -4,13 +4,13 @@ import { Outlet, Navigate } from 'react-router-dom'
 const ProtectRole = ({role}) => {
     const userInfo={
         name: "Rizky",
-        role: "admin"
+        role: "writer"
     }
 
     if (userInfo.role === role){
         return <Outlet/>
     } else {
-        return <Navigate to="/dashboard/gagal"/>
+        return <Navigate to="/dashboard/unable-access"/>
     }r
 }
 

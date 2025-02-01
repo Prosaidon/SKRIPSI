@@ -27,12 +27,12 @@ class authControllers{
                     const token = await jwt.sign(obj, process.env.secret,{
                         expiresIn: process.env.exp_time
                     })
-                    return res.status(200).json({ massage: 'Login Sucess', token})
+                    return res.status(200).json({ message: 'Login Sucess', token})
                 }else{
-                    return res.status(404).json({ massage: 'invalid password'})
+                    return res.status(404).json({ message: 'invalid password'})
                 }
             }else{
-                return res.status(404).json({ massage: 'user not found'})
+                return res.status(404).json({ message: 'user not found'})
             }
         }catch (error){
             console.log(error)

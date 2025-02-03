@@ -7,10 +7,10 @@ class authControllers{
         const { email, password } = req.body
 
         if(!email){
-            return res.status(404).json({ massage: 'Please provide your email'})
+            return res.status(404).json({ message: 'Please provide your email'})
         }
         if(!password){
-            return res.status(401).json({ massage: 'Please provide your password'})
+            return res.status(401).json({ message: 'Please provide your password'})
         }
 
         try{
@@ -27,7 +27,7 @@ class authControllers{
                     const token = await jwt.sign(obj, process.env.secret,{
                         expiresIn: process.env.exp_time
                     })
-                    return res.status(200).json({ message: 'Login Sucess', token})
+                    return res.status(200).json({ message: 'Login Success', token})
                 }else{
                     return res.status(404).json({ message: 'invalid password'})
                 }
@@ -37,6 +37,11 @@ class authControllers{
         }catch (error){
             console.log(error)
         }
+    }
+
+
+    add_writer = async(req, res) => {
+        console.log(req.body)
     }
 }
 

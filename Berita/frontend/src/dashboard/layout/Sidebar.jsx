@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/JATENGUPDATES.png';
 import { AiFillDashboard, AiOutlinePlus } from 'react-icons/ai';
@@ -7,13 +7,12 @@ import { BiNews } from 'react-icons/bi';
 import {FiUser } from 'react-icons/fi';
 import './Sidebar.css'; // Pastikan file CSS terhubung
 import { FaPlus } from 'react-icons/fa';
+import storeContext from '../../context/storeContext'
 
 const Sidebar = () => {
   const { pathname } = useLocation();
 
-  const userInfo ={
-    role :"writer"
-  }
+  const {store} = useContext(storeContext)
 
   return (
     <div className="sidebar">
@@ -24,7 +23,7 @@ const Sidebar = () => {
       </div>
       <ul className="sidebar-menu">
         {
-          userInfo.role === 'admin'? <>
+          store.userInfo?.role === 'admin'? <>
             <li>
               <Link to="/dashboard/admin" className={`menu-item ${pathname === '/dashboard/admin' ? 'active' : ''}`}>
                 <span className="icon">

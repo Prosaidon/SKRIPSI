@@ -39,9 +39,50 @@ class authControllers{
         }
     }
 
-
     add_writer = async(req, res) => {
-        console.log(req.body)
+        const {email, name, password, category} = req.body
+        if(!name){
+            return res.status(404).json({ message: 'please provide name'})
+        }
+        if(!password){
+            return res.status(404).json({ message: 'please provide password'})
+        }
+        if(!category){
+            return res.status(404).json({ message: 'please provide category'})
+        }
+        if(!email){
+            return res.status(404).json({ message: 'please provide email'})
+        }
+        if(email && !email.match(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/))
+        {
+            return res.status(404).json({ message: 'please provide valied email'})
+        }
+        try{
+            const writer = await authModels.findOne({ email: email.trim() }) 
+            if (writer){
+                return res.status(404).json({ message: 'user alreasy exit'})
+            }else{  
+                const new_writer = await authModels.create({
+                    name: name.trim(),
+                    email: email.trim(),
+                    password: await bcrypt.hash(password.trim(), 10),
+                    category: category.trim(),
+                    role: 'writer'
+                })
+                return res.status(201).json({ message: 'writer add success', writer: new_writer})
+            }
+        }catch (error){
+            return res.status(500).json({ message: 'internet server error',})
+        }
+    }
+
+    get_writers = async (req, res ) => {
+        try{
+            const writers = await authModels.find({ role: "writer"}).sort({ createdAt: -1})
+            return res.status(200).json({ writers }) 
+        }catch(error){
+            return res.status(500).json({ message:'internet server error' })
+        }
     }
 }
 

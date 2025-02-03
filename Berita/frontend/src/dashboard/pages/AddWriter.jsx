@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import axios from 'axios'
 import {base_url} from '../../config/config'
@@ -7,6 +7,7 @@ import storeContext from '../../context/storeContext'
 
 const AddWriter = () => {
 
+  const navigate = useNavigate()
   const {store} = useContext(storeContext)
   const [state, setState] = useState({
     name: "",
@@ -20,18 +21,24 @@ const AddWriter = () => {
       [e.target.name] : e.target.value
     })
   }
-
+  const [loader,setLoader] = useState(false)
+  
   const submit = async (e) => {
     e.preventDefault()
     try {
+      setLoader(true)
       const { data } = await axios.post(`${base_url}/api/news/writer/add`, 
         state, {
           headers : {
             'Authorization' : `Bearer ${store.token}`
           }
         })
+        setLoader(false)
+        toast.success(data.message)
+        navigate('/dashboard/writers')
     }catch (error) {
-      console.log(error)
+      setLoader(false)
+      toast.success(data.message)
     }
   }
 
@@ -79,7 +86,7 @@ const AddWriter = () => {
             </div>
           </div>
           <div className='mt-4'>
-            <button className='px-3 py-[6px] bg-purple-500 rounded-md text-white hover:bg-purple-600'>Add Writer</button>
+            <button disabled={loader} className='px-3 py-[6px] bg-purple-500 rounded-md text-white hover:bg-purple-600'>{loader ? 'Loading...':'Add Writer'}</button>
           </div>
         </form>
       </div>

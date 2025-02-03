@@ -1,31 +1,41 @@
 import React, {useContext} from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../assets/JATENGUPDATES.png';
 import { AiFillDashboard, AiOutlinePlus } from 'react-icons/ai';
 import { ImProfile } from 'react-icons/im';
 import { BiNews } from 'react-icons/bi';
 import {FiUser } from 'react-icons/fi';
-import './Sidebar.css'; // Pastikan file CSS terhubung
 import { FaPlus } from 'react-icons/fa';
+import { IoLogOutOutline } from "react-icons/io5";
 import storeContext from '../../context/storeContext'
 
 const Sidebar = () => {
+
+
+  const  navigate = useNavigate()
   const { pathname } = useLocation();
 
-  const {store} = useContext(storeContext)
+  const {store, dispatch} = useContext(storeContext)
+
+  const logout = () =>{
+    localStorage.removeItem('newsToken')
+    dispatch({ type:'logout', payload: ''})
+    navigate('/login')
+  }
 
   return (
-    <div className="sidebar">
-      <div className="sidebar-header">
+    <div className="w-[250px] h-screen fixed left-0 top-0 bg-white">
+      <div className="h-[70px] flex justify-center items-center">
         <Link to="/">
-          <img className="sidebar-logo" src={logo} alt="Jateng Updates" />
+          <img className="w-[190px] h-[90px]" src={logo} alt="Jateng Updates" />
         </Link>
       </div>
-      <ul className="sidebar-menu">
+      <ul className="px-3 flex flex-col gap-y-1 font-medium">
         {
           store.userInfo?.role === 'admin'? <>
             <li>
-              <Link to="/dashboard/admin" className={`menu-item ${pathname === '/dashboard/admin' ? 'active' : ''}`}>
+              <Link to="/dashboard/admin" className={`px-3 ${pathname === '/dashboard/admin' ? 'bg-indigo-500 text-white' : 'bg-white text-[#404040f6]'} 
+              py-2 hover:shadow-lg hover:shadow-indigo-500/20 w-full rounded-sm flex gap-x-2 justify-start items-center hover:bg-indigo-500 hover:text-white`}>
                 <span className="icon">
                   <AiFillDashboard />
                 </span>
@@ -33,7 +43,8 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/writer/add" className={`menu-item ${pathname === '/dashboard/writer/add' ? 'active' : ''}`}>
+              <Link to="/dashboard/writer/add" className={`px-3 ${pathname === '/dashboard/writer/add' ? 'bg-indigo-500 text-white' : 'bg-white text-[#404040f6]'} 
+              py-2 hover:shadow-lg hover:shadow-indigo-500/20 w-full rounded-sm flex gap-x-2 justify-start items-center hover:bg-indigo-500 hover:text-white`}>
                 <span className="icon">
                   <AiOutlinePlus />
                 </span>
@@ -41,7 +52,8 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/writers" className={`menu-item ${pathname === '/dashboard/writers' ? 'active' : ''}`}>
+              <Link to="/dashboard/writers" className={`px-3 ${pathname === '/dashboard/writers' ? 'bg-indigo-500 text-white' : 'bg-white text-[#404040f6]'} 
+              py-2 hover:shadow-lg hover:shadow-indigo-500/20 w-full rounded-sm flex gap-x-2 justify-start items-center hover:bg-indigo-500 hover:text-white`}>
                 <span className="icon">
                   <ImProfile />
                 </span>
@@ -52,7 +64,8 @@ const Sidebar = () => {
           </>:<>
 
             <li>
-              <Link to="/dashboard/writer" className={`menu-item ${pathname === '/dashboard/writer' ? 'active' : ''}`}>
+              <Link to="/dashboard/writer" className={`px-3 ${pathname === '/dashboard/writer' ? 'bg-indigo-500 text-white' : 'bg-white text-[#404040f6]'} 
+              py-2 hover:shadow-lg hover:shadow-indigo-500/20 w-full rounded-sm flex gap-x-2 justify-start items-center hover:bg-indigo-500 hover:text-white`}>
                 <span className="icon">
                   <AiFillDashboard />
                 </span>
@@ -60,7 +73,8 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/news/create" className={`menu-item ${pathname === '/dashboard/news/create' ? 'active' : ''}`}>
+              <Link to="/dashboard/news/create" className={`px-3 ${pathname === '/dashboard/news/create' ? 'bg-indigo-500 text-white' : 'bg-white text-[#404040f6]'} 
+              py-2 hover:shadow-lg hover:shadow-indigo-500/20 w-full rounded-sm flex gap-x-2 justify-start items-center hover:bg-indigo-500 hover:text-white`}>
                 <span className="icon">
                   <FaPlus />
                 </span>
@@ -71,7 +85,8 @@ const Sidebar = () => {
         }
         
         <li>
-          <Link to="/dashboard/news" className={`menu-item ${pathname === '/dashboard/news' ? 'active' : ''}`}>
+          <Link to="/dashboard/news" className={`px-3 ${pathname === '/dashboard/news' ? 'bg-indigo-500 text-white' : 'bg-white text-[#404040f6]'} 
+              py-2 hover:shadow-lg hover:shadow-indigo-500/20 w-full rounded-sm flex gap-x-2 justify-start items-center hover:bg-indigo-500 hover:text-white`}>
             <span className="icon">
               <BiNews />
             </span>
@@ -80,11 +95,21 @@ const Sidebar = () => {
         </li>
         
         <li>
-          <Link to="/dashboard/profile" className={`menu-item ${pathname === '/dashboard/profile' ? 'active' : ''}`}>
+          <Link to="/dashboard/profile" className={`px-3 ${pathname === '/dashboard/profile' ? 'bg-indigo-500 text-white' : 'bg-white text-[#404040f6]'} 
+              py-2 hover:shadow-lg hover:shadow-indigo-500/20 w-full rounded-sm flex gap-x-2 justify-start items-center hover:bg-indigo-500 hover:text-white`}>
             <span className="icon">
               <FiUser />
             </span>
             <span>Profile</span>
+          </Link>
+        </li>
+
+        <li>
+          <Link onClick={logout} to="/login" className={`px-3 py-2 hover:shadow-lg hover:shadow-red-500/20 w-full rounded-sm flex gap-x-2 justify-start items-center hover:bg-red-500 hover:text-white cursor-pointer`}>
+            <span className="icon">
+            <IoLogOutOutline />
+            </span>
+            <span>Logout</span>
           </Link>
         </li>
       </ul>

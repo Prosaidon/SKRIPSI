@@ -10,7 +10,7 @@ const ProtectDashboard = () => {
     if (store.userInfo){
         return <Outlet/>
     } else {
-        return <Navigate to="/unable-access"/>
+        return <Navigate to="/login"/>
     }
 
    

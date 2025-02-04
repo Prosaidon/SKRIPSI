@@ -1,11 +1,15 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { FaCloudUploadAlt } from "react-icons/fa";
 import JoditEditor from 'jodit-react'
 import Gallery from '../components/Gallery';
+import {base_url} from '../../config/config'
+import axios from 'axios'
+import storeContext from '../../context/storeContext'
+import toast from 'react-hot-toast'
 
 const CreateNews = () => {
-
+    const { store } = useContext(storeContext)
     const [show, setShow] = useState(false)
     const editor = useRef(null)
 
@@ -24,16 +28,28 @@ const CreateNews = () => {
         }
     }
 
-    const added = (e) => {
+    const [loader, setLoader] = useState(false)
+
+    const added = async(e) => {
         e.preventDefault()
-        const formData = new formData()
+        const formData = new FormData()
         formData.append('title',title)
         formData.append('description',description)
         formData.append('image',image)
-        try{
-            
-        }catch(error){
 
+        try{
+            setLoader(true)
+             const {data} = await axios.post(`${base_url}/api/news/add`,formData,{
+                headers: {
+                     "Authorization": `Bearer ${store.token}`
+                }
+             })
+            setLoader(false)
+            console.log(data) 
+            toast.success(data.message)
+        }catch(error){  
+            setLoader(false)
+            toast.success(error.response.data.message)
         }
     }
 
@@ -84,7 +100,7 @@ const CreateNews = () => {
                     </div>
 
                     <div className='mt-4'>
-                        <button className='px-3 py-[6px] bg-purple-500 rounded-md text-white hover:bg-purple-600'>Add News</button>
+                        <button disabled={loader} className='px-3 py-[6px] bg-purple-500 rounded-md text-white hover:bg-purple-600'>{loader ? 'loading...' : 'Add News'}</button>
                     </div>
                 </form>
             </div>

@@ -3,12 +3,12 @@ import { jwtDecode } from 'jwt-decode'
 const decode_token = (token) => {
     if (token) {
         try {
-            const decode_token = jwtDecode(token)
-            const exp = new Date(decode_token.exp * 1000)
+            const decoded_token = jwtDecode(token)
+            const exp = new Date(decoded_token.exp * 1000)
             if (new Date()>exp){
                 localStorage.removeItem('newsToken')
             } else {
-                return decode_token
+                return decoded_token
             }
         } catch (error) {
             return ""

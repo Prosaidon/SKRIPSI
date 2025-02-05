@@ -5,6 +5,7 @@ class middleware{
     auth = async(req,res,next) => {
         
         const {authorization} = req.headers
+
         if(authorization){
             const token = authorization.split('Bearer ')[1]
             if(token){

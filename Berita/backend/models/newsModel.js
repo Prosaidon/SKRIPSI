@@ -12,7 +12,6 @@ const newsSchema = new Schema({
     },
     title: {
         type: String,
-        select: false,
         required:true
     },
     slug: {

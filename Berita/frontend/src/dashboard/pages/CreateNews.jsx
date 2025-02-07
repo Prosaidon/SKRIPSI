@@ -64,6 +64,7 @@ const CreateNews = () => {
             })
             console.log(data.images)
             setImages(data.images)
+            
         }catch(error){
             console.log(error)
         }
@@ -100,6 +101,8 @@ const CreateNews = () => {
             toast.error(error.response.data.message)
         }
     }
+
+    
 
     return (
         <div className=' bg-white rounded-md'>
@@ -158,6 +161,7 @@ const CreateNews = () => {
             }
         </div>
     )
+    console.log(n)
 }
 
 export default CreateNews

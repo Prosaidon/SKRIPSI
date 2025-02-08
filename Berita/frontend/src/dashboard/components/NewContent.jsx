@@ -67,7 +67,7 @@ const NewContent = () => {
   return (
     <div>
         <div className='px-4 py-3 flex gap-x-3'>
-            <select name='' className='px-3 py-2 rounded-md outline-0 border border-gray-300 focus:border-green-500 h-10' id=''>
+            <select onChange={type_filter} name='' className='px-3 py-2 rounded-md outline-0 border border-gray-300 focus:border-green-500 h-10' id=''>
                 <option value="">---select type---</option>
                 <option value="pending">Pending</option>
                 <option value="active">Active</option>
@@ -120,7 +120,9 @@ const NewContent = () => {
         <div className='flex items-center justify-end px-10 gap-x-3 text-slate-600'>
             <div className='flex gap-x-3 justify-center items-center'>
                 <p className='px-4 font-semibold text-sm'>New par page</p>
-                <select value={parPage} onChange={(e) => setParPage(parseint(e.target.value))} name='category' id='category' className='px-3 py-2 rounded-md outline-0 
+                <select value={parPage} onChange={(e) => {setParPage(parseInt(e.target.value))
+                    setPage(1)
+                }} name='category' id='category' className='px-3 py-2 rounded-md outline-0 
                  border border-gray-30 0 focus:border-green-500 h-10'>
                     <option value="5">5</option>
                     <option value="10">10</option>

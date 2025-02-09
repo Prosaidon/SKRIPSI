@@ -50,10 +50,17 @@ const NewContent = () => {
     console.log(news); // Untuk memastikan data yang diterima di NewContent
 
     const type_filter = (e) => {
-        const tempNews = all_news.filter(n=>n.status === e.target.value)
-        setNews(tempNews)
-        setPage(1)
-        setParPage(5)
+        if (e.target.value === '') {
+            setNews(all_news)
+            setPage(1)
+            setParPage(5) 
+        } else {
+            const tempNews = all_news.filter(n=>n.status === e.target.value)
+            setNews(tempNews)
+            setPage(1)
+            setParPage(5) 
+        }
+        
     }
 
     const search_news = (e) => {
@@ -106,7 +113,7 @@ const NewContent = () => {
                         <td className='px-6 oy-4'>
                             <div className='flex justify-start items-center gap-x-4 text-white'>
                                 <Link className='p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50'><FaEye /></Link>        
-                                <Link className='p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50'><FaEdit /></Link>
+                                <Link to={`/dashboard/news/edit/${n._id}`} className='p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50'><FaEdit /></Link>
                                 <div className='p-[6px] bg-red-500 rounded hover:shadow-lg hover:shadow-red-500/50'><FaTrash /></div>        
                             </div>
                         </td>

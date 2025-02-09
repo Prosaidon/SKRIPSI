@@ -76,6 +76,19 @@ class newsController {
 
     }
 
+    update_news_update = async(req,res)=>{
+        const { role } = req.userInfo
+        const { news_id } = req.params
+        const { status } = req.body
+
+        if(role === 'admin'){
+            const news = await newsModel.findByIdAndUpdate(news_id, { status }, { new: true})
+            return res.status(200).json({message: 'news status update success', news})
+        }else{
+            return res.status(401).json({message: 'You cannot access this api'})
+        }
+    }
+
 
     get_images = async(req,res) => {
         const {id} = req.userInfo

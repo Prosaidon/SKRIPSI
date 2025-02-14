@@ -21,7 +21,7 @@ class authControllers{
                     const obj = {
                         id: user.id,
                         name: user.name,
-                        category: user.category,
+                        // category: user.category,
                         role: user.role
                     }
                     const token = await jwt.sign(obj, process.env.secret,{
@@ -40,16 +40,16 @@ class authControllers{
     }
 
     add_writer = async(req, res) => {
-        const {email, name, password, category} = req.body
+        const {email, name, password,} = req.body
         if(!name){
             return res.status(404).json({ message: 'please provide name'})
         }
         if(!password){
             return res.status(404).json({ message: 'please provide password'})
         }
-        if(!category){
-            return res.status(404).json({ message: 'please provide category'})
-        }
+        // if(!category){
+        //     return res.status(404).json({ message: 'please provide category'})
+        // }
         if(!email){
             return res.status(404).json({ message: 'please provide email'})
         }
@@ -66,7 +66,7 @@ class authControllers{
                     name: name.trim(),
                     email: email.trim(),
                     password: await bcrypt.hash(password.trim(), 10),
-                    category: category.trim(),
+                    // category: category.trim(),
                     role: 'writer'
                 })
                 return res.status(201).json({ message: 'writer add success', writer: new_writer})

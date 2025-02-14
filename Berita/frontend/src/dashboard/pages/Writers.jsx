@@ -42,7 +42,7 @@ const Writers = () => {
                 <tr>
                     <th className='px-7 py-3'>No</th>
                     <th className='px-7 py-3'>Name</th>
-                    <th className='px-7 py-3'>Category</th>
+                    {/* <th className='px-7 py-3'>Category</th> */}
                     <th className='px-7 py-3'>Role</th>
                     <th className='px-7 py-3'>Image</th>
                     <th className='px-7 py-3'>Email</th>
@@ -54,7 +54,7 @@ const Writers = () => {
                  writers.map((r,i)=> <tr key={i} className='bg-white border-b'>
                   <td className='px-6 py-4'>{i+1}</td>
                   <td className='px-6 py-4'>{r.name}</td>
-                  <td className='px-6 py-4'>{r.category}</td>
+                  {/* <td className='px-6 py-4'>{r.category}</td> */}
                   <td className='px-6 py-4'>{r.role}</td>
                   <td className='px-6 py-4'>
                       <img className='w-[40px] h-[40px]' src={berita}/>

@@ -8,7 +8,7 @@ const moment = require('moment')
 
 class newsController {
     add_news = async (req, res) => {
-        const {id, category, name} = req.userInfo
+        const {id, name} = req.userInfo
         const form = formidable({})
         cloudinary.config({
             cloud_name: process.env.cloud_name,
@@ -21,12 +21,12 @@ class newsController {
             const {url} = await cloudinary.uploader.upload(files.image[0].filepath, {
                 folder: 'news_images'
             })
-            const { title, description } = fields;
+            const { title, description, category } = fields;
             const news = await newsModel.create({
                 writerId: id,
                 title: title[0].trim(),
                 slug: title[0].trim().split(' ').join('-'),
-                category,
+                category: category[0],
                 description: description[0],
                 date : moment().format('LL'),
                 WriterName: name,
@@ -50,7 +50,7 @@ class newsController {
 
         try {
             const [fields, files] = await form.parse(req)
-            const { title, description } = fields;
+            const { title, description, category } = fields;
             let url = fields.old_image[0]
 
             if(Object.keys(files).length > 0 ){
@@ -64,6 +64,7 @@ class newsController {
             const news =  await newsModel.findByIdAndUpdate(news_id, {
                 title: title[0].trim(),
                 slug: title[0].trim().split(' ').join('-'),
+                category: category[0],
                 description: description[0],
                 image: url
             },{new : true})

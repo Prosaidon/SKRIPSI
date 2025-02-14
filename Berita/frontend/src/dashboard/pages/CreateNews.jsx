@@ -14,6 +14,7 @@ const CreateNews = () => {
     const editor = useRef(null)
 
     const [title, setTitle] = useState('')
+    const [category, setCategory] = useState('')
     const [image, setImage] = useState('')
     const [img, setImg] = useState('')
     const [description, setDescription] = useState('')
@@ -34,6 +35,7 @@ const CreateNews = () => {
         e.preventDefault()
         const formData = new FormData()
         formData.append('title',title)
+        formData.append('category',category)
         formData.append('description',description)
         formData.append('image',image)
 
@@ -119,6 +121,20 @@ const CreateNews = () => {
                         <input required value={title} onChange={(e) => setTitle(e.target.value)} type='text' placeholder='title' name='title' className='px-3 py-2 rounded-md outline-0 border border-gray-300
                         focus:border-green-500 h-10' id='title'/>
                     </div>
+                    <div className='flex flex-col gap-y-2 mb-6'>
+                        <label className='text-md font-medium text-gray-600' 
+                        htmlFor='category'>Category</label>
+                        <select onChange={(e) => setCategory(e.target.value)} value={category} required name='category' id='category' className='px-3 py-2 rounded-md outline-0 
+                        border border-gray-30 0 focus:border-green-500 h-10'>
+                            <option value="">---select category---</option>
+                            <option value="Peristiwa">Peristiwa</option>
+                            <option value="Pemerintahan">Pemerintahan</option>
+                            <option value="Hukum & Kriminal">Hukum & Kriminal</option>
+                            <option value="Bisnis & Ekonomi">Bisnis & Ekonomi</option>
+                            <option value="Politik">Politik</option>
+                            <option value="Sosial Budaya">Sosial Budaya</option> 
+                        </select>
+                    </div>
                     <div className='mb-6'>
                         <div>
                             <label htmlFor='img' className={'w-full h-[240px] flex rounded text-[#404040] gap-2 justify-center items-center cursor-pointer border-2 border-dashhed'}>
@@ -161,7 +177,6 @@ const CreateNews = () => {
             }
         </div>
     )
-    console.log(n)
 }
 
 export default CreateNews

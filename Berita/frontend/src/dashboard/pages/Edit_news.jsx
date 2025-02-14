@@ -18,6 +18,7 @@ const Edit_news = () => {
 
     const [old_image, set_old_image] = useState('')
     const [title, setTitle] = useState('')
+    const [category, setCategory] = useState('')
     const [image, setImage] = useState('')
     const [img, setImg] = useState('')
     const [description, setDescription] = useState('')
@@ -38,6 +39,7 @@ const Edit_news = () => {
         e.preventDefault()
         const formData = new FormData()
         formData.append('title',title)
+        formData.append('category',category)
         formData.append('description',description)
         formData.append('new_image',image)
         formData.append('old_image',old_image)
@@ -115,6 +117,7 @@ const Edit_news = () => {
                 }
             })
             setTitle(data?.news?.title)
+            setCategory(data?.news?.category)
             setDescription(data?.news?.description)
             setImg(data?.news?.image)
             set_old_image(data?.news?.image)
@@ -141,6 +144,20 @@ const Edit_news = () => {
                         htmlFor='title'>Title</label>
                         <input required value={title} onChange={(e) => setTitle(e.target.value)} type='text' placeholder='title' name='title' className='px-3 py-2 rounded-md outline-0 border border-gray-300
                         focus:border-green-500 h-10' id='title'/>
+                    </div>
+                    <div className='flex flex-col gap-y-2 mb-6'>
+                        <label className='text-md font-medium text-gray-600' 
+                        htmlFor='category'>Category</label>
+                        <select onChange={(e) => setCategory(e.target.value)} value={category} required name='category' id='category' className='px-3 py-2 rounded-md outline-0 
+                        border border-gray-30 0 focus:border-green-500 h-10'>
+                            <option value="">---select category---</option>
+                            <option value="Peristiwa">Peristiwa</option>
+                            <option value="Pemerintahan">Pemerintahan</option>
+                            <option value="Hukum & Kriminal">Hukum & Kriminal</option>
+                            <option value="Bisnis & Ekonomi">Bisnis & Ekonomi</option>
+                            <option value="Politik">Politik</option>
+                            <option value="Sosial Budaya">Sosial Budaya</option> 
+                        </select>
                     </div>
                     <div className='mb-6'>
                         <div>

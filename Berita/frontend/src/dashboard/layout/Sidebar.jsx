@@ -5,7 +5,8 @@ import { AiFillDashboard, AiOutlinePlus } from 'react-icons/ai';
 import { ImProfile } from 'react-icons/im';
 import { BiNews } from 'react-icons/bi';
 import {FiUser } from 'react-icons/fi';
-import { FaPlus } from 'react-icons/fa';
+import { FaPlus, FaUserFriends } from 'react-icons/fa';
+import { TiPin } from "react-icons/ti";
 import { IoLogOutOutline } from "react-icons/io5";
 import storeContext from '../../context/storeContext'
 
@@ -58,6 +59,28 @@ const Sidebar = () => {
                   <ImProfile />
                 </span>
                 <span>Writers</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/dashboard/labelberita"
+                className={`px-3 ${
+                  pathname === "/dashboard/labelberita"
+                    ? "bg-indigo-500 text-white"
+                    : "bg-white text-[#404040f6]"
+                } py-2 hover:shadow-lg hover:shadow-indigo-500/20 w-full rounded-sm flex gap-x-2 justify-start items-center hover:bg-indigo-500 hover:text-white`}
+              >
+                <TiPin />
+                <span>Label Berita</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/user" className={`px-3 ${pathname === '/dashboard/user' ? 'bg-indigo-500 text-white' : 'bg-white text-[#404040f6]'} 
+              py-2 hover:shadow-lg hover:shadow-indigo-500/20 w-full rounded-sm flex gap-x-2 justify-start items-center hover:bg-indigo-500 hover:text-white`}>
+                <span className="icon">
+                <FaUserFriends />
+                </span>
+                <span>User</span>
               </Link>
             </li>
           

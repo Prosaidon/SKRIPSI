@@ -13,6 +13,9 @@ import Profile from './dashboard/pages/Profile'
 import WriterIndex from './dashboard/pages/WriterIndex'
 import CreateNews from './dashboard/pages/CreateNews'
 import Edit_news from './dashboard/pages/Edit_news'
+import LabelBerita from './dashboard/pages/LabelBerita'
+import User from './dashboard/pages/User'
+
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -31,12 +34,15 @@ function App() {
             <Route path='' element={userInfo.role ==='admin'?<Navigate to='/dashboard/admin'/> : <Navigate to='/dashboard/writer'/>}/>
             <Route path='unable-access' element={<Unable/>}/>
             <Route path='news' element={<News/>}/>
+            
             <Route path='profile' element={<Profile/>}/>
 
-              <Route path='' element={<ProtectRole role='admin'/>}>
-                <Route path='admin' element={<AdminIndex/>}/>
-                <Route path='writer/add' element={<AddWriter/>}/>
-                <Route path='writers' element={<Writers/>}/>
+              <Route path="" element={<ProtectRole role="admin" />}>
+                <Route path="admin" element={<AdminIndex />} />
+                <Route path="writer/add" element={<AddWriter />} />
+                <Route path="writers" element={<Writers />} />
+                <Route path="labelberita" element={<LabelBerita/>} />
+                <Route path="user" element={<User/>} />
               </Route>
             
               <Route path='' element={<ProtectRole role='writer'/>}>

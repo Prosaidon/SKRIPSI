@@ -160,6 +160,60 @@ class newsController {
             return res.status(500).json({ message: ' Internet Server Error' })
         }
     }
+
+    //website
+    get_all_news = async(req,res)=>{
+        try {
+            const category_news = await newsModel.aggregate([
+                {
+                    $sort: { createdAt: -1 }
+                },
+                {
+                    $match:{
+                        status: 'active'
+                    }
+                },
+                {
+                    $group: {
+                        _id : "$category",
+                        news : {
+                            $push: {
+                                _id: '$_id',
+                                title: '$title',
+                                slug: '$slug',
+                                WriterName: '$WriterName',
+                                image : '$image',
+                                description : '$description',
+                                date: '$date',
+                                category: '$category'
+                            }
+                        }
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        category: '$_id',
+                        news: {
+                            $slice: ['$news', 6]
+                        }
+                    }
+                }
+            ])
+
+            const news = {}
+            for(let i = 0; i<category_news.length; i++){
+                news[category_news[i].category] = category_news[i].news
+            }
+            // console.log(news)
+            return res.status(200).json({ news })
+        } catch (error) {
+            console.log(error.message)
+            return res.status(500).json({ message: ' Internet Server Error' })
+        }
+    }
+
 }
+
 
 module.exports = new newsController()

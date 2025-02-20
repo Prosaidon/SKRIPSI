@@ -129,10 +129,10 @@ const CreateNews = () => {
                             <option value="">---select category---</option>
                             <option value="Peristiwa">Peristiwa</option>
                             <option value="Pemerintahan">Pemerintahan</option>
-                            <option value="Hukum & Kriminal">Hukum & Kriminal</option>
-                            <option value="Bisnis & Ekonomi">Bisnis & Ekonomi</option>
+                            <option value="HukumKriminal">Hukum & Kriminal</option>
+                            <option value="BisnisEkonomi">Bisnis & Ekonomi</option>
                             <option value="Politik">Politik</option>
-                            <option value="Sosial Budaya">Sosial Budaya</option> 
+                            <option value="SosialBudaya">Sosial Budaya</option> 
                         </select>
                     </div>
                     <div className='mb-6'>

@@ -17,6 +17,7 @@ class newsController {
             secure: true,
         })
         try{
+            console.log(req.body);
             const [fields, files] = await form.parse(req)
             const {url} = await cloudinary.uploader.upload(files.image[0].filepath, {
                 folder: 'news_images'
@@ -207,6 +208,49 @@ class newsController {
             }
             // console.log(news)
             return res.status(200).json({ news })
+        } catch (error) {
+            console.log(error.message)
+            return res.status(500).json({ message: ' Internet Server Error' })
+        }
+    }
+
+    get_news = async (req, res) =>{
+        const {slug} = req.params
+        
+        try {
+            const news = await newsModel.findOne({ slug })
+
+
+        if (!news) {
+            return res.status(404).json({ message: "News not found" });
+        }
+            
+            return res.status(200).json({ news })
+        } catch (error) {
+            onsole.log(error.message)
+            return res.status(500).json({ message: ' Internet Server Error' })
+        }
+    }
+
+    get_categories = async(req,res)=> {
+        try {
+            const categories = await newsModel.aggregate([
+                {
+                    $group:{
+                        _id: '$category',
+                        count: { $sum: 1 }
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        category: "$_id",
+                        count : 1
+                    }
+                }
+            ])
+            
+            return res.status(200).json({ categories })
         } catch (error) {
             console.log(error.message)
             return res.status(500).json({ message: ' Internet Server Error' })

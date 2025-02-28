@@ -239,6 +239,22 @@ class newsController {
         }
     }
 
+    news_search = async (req, res) => {
+        const { value } = req.query
+        try {
+            const news = await newsModel.find({
+                status: 'active',
+                $text: {
+                    $search: value
+                }
+            })
+            return res.status(200).json({ news })
+        } catch (error) {
+            console.log(error.message)
+            return res.status(500).json({ message: ' Internet Server Error' })
+        }
+    }
+
     get_news = async (req, res) =>{
         const {slug} = req.params
         
